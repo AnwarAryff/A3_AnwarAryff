@@ -20,35 +20,34 @@ class Mode1Navigator:
 
     def select_sites(self) -> list[tuple[Land, int]]:
         """
-        Student-TODO: Best/Worst Case
-        target base case: O(log N), target worst case: O(N)
+        Best Case: O(1), Occurs when the first site to enter has the same amount of guar
+        target best case: O(log N), target worst case: O(N)
         """
         adventurers_rmg = self.adventurers_count
-        sites = deepcopy(self.site_nodes)
         selected = []
         i = -1
-        while adventurers_rmg > 0 and -i <= len(sites):
-            most_profit = sites[i][1]
+        while adventurers_rmg > 0 and -i <= len(self.site_nodes):
+            most_profit = self.site_nodes[i][1]
             if adventurers_rmg >= most_profit.get_guardians():
                 selected.append((most_profit, most_profit.get_guardians()))
                 adventurers_rmg -= most_profit.get_guardians()
                 i -= 1
             else:
-                selected.append((sites[i][1], adventurers_rmg))
+                selected.append((self.site_nodes[i][1], adventurers_rmg))
                 break
         return selected
             
     def select_sites_from_adventure_numbers(self, adventure_numbers: list[int]) -> list[float]:
         """
         Student-TODO: Best/Worst Case
+        targeted worst case: O(A x N)
         """
-        sites = deepcopy(self.site_nodes)
         rewards = []
         for adventurers in adventure_numbers:
             i = -1
             trip_reward = 0
-            while adventurers > 0 and -i <= len(sites):
-                most_profit = sites[i][1]
+            while adventurers > 0 and -i <= len(self.site_nodes):
+                most_profit = self.site_nodes[i][1]
                 if adventurers >= most_profit.get_guardians():
                     trip_reward += most_profit.get_gold()
                     adventurers -= most_profit.get_guardians()
